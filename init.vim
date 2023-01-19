@@ -1,4 +1,5 @@
-
+"
+" __  ____   __  _   ___     _____ __  __ ____   ____
 "|  \/  \ \ / / | \ | \ \   / /_ _|  \/  |  _ \ / ___|
 "| |\/| |\ V /  |  \| |\ \ / / | || |\/| | |_) | |
 "| |  | | | |   | |\  | \ V /  | || |  | |  _ <| |___
@@ -10,11 +11,6 @@ if empty(glob($HOME.'/.config/nvim/autoload/plug.vim'))
 	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-let g:nvim_plugins_installation_completed = 1
-if empty(glob($HOME.'/.config/nvim/plugged/wildfire.vim/autoload/wildfire.vim'))
-	let g:nvim_plugins_installation_completed = 0
-	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
 
 " 插件列表
 call plug#begin()
@@ -29,22 +25,16 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'theniceboy/eleline.vim', { 'branch': 'no-scrollbar' }
 " 代码注释
 Plug 'theniceboy/tcomment_vim'
-" 顶部分页栏
-"Plug 'mg979/vim-xtabline'
-" 文件管理器
-Plug 'kevinhwang91/rnvimr'
 
-Plug 'gcmt/wildfire.vim'
 
 Plug 'ibhagwan/fzf-lua'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
+" 顶部选项卡
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'romgrk/barbar.nvim'
 
-Plug 'nvim-tree/nvim-web-devicons'
-Plug 'romgrk/barbar.nvim'
 
 call plug#end()
 
@@ -63,6 +53,7 @@ set softtabstop=2
 set autoindent
 set list
 set listchars=tab:\|\ ,trail:>
+set clipboard=unnamedplus
 
 set wrap
 
@@ -164,8 +155,8 @@ let g:airline_powerline_fonts = 0
 let g:tcomment_textobject_inline_comment = ''
 nmap <LEADER>cn g>c
 vmap <LEADER>cu g>
-" nmap <LEADER>cu g>c
-" vmap <LEADER>cn g>
+nmap <LEADER>cu g>c
+vmap <LEADER>cn g>
 
 " ==================== xtabline ====================
 let g:xtabline_settings = {}
@@ -243,7 +234,6 @@ augroup fzf_commands
   autocmd FileType fzf tnoremap <silent> <buffer> <c-k> <up>
 augroup end
 
-if g:nvim_plugins_installation_completed == 1
 lua <<EOF
 require'fzf-lua'.setup {
 	global_resume = true,
@@ -344,7 +334,6 @@ require'fzf-lua'.setup {
   },
 }
 EOF
-endif
 
 let g:lightline={ 'enable': {'statusline': 1, 'tabline': 0} }
 
