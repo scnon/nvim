@@ -4,7 +4,6 @@
 "| |  | | | |   | |\  | \ V /  | || |  | |  _ <| |___
 "|_|  |_| |_|   |_| \_|  \_/  |___|_|  |_|_| \_\\____|
 
-
 " 自动下载插件管理器 plug.vim
 if empty(glob($HOME.'/.config/nvim/autoload/plug.vim'))
 	silent !curl -fLo $HOME/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -31,7 +30,7 @@ Plug 'theniceboy/eleline.vim', { 'branch': 'no-scrollbar' }
 " 代码注释
 Plug 'theniceboy/tcomment_vim'
 " 顶部分页栏
-Plug 'mg979/vim-xtabline'
+"Plug 'mg979/vim-xtabline'
 " 文件管理器
 Plug 'kevinhwang91/rnvimr'
 
@@ -40,6 +39,12 @@ Plug 'gcmt/wildfire.vim'
 Plug 'ibhagwan/fzf-lua'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+
+Plug 'nvim-tree/nvim-web-devicons'
+Plug 'romgrk/barbar.nvim'
+
+Plug 'nvim-tree/nvim-web-devicons'
+Plug 'romgrk/barbar.nvim'
 
 call plug#end()
 
@@ -74,6 +79,7 @@ set updatetime=100
 set virtualedit=block
 
 
+noremap <silent> <C-t> :terminal<CR><A>
 
 " ================== coc.nvim =======================
 let g:coc_global_extensions = [
@@ -223,13 +229,13 @@ let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.95 } }
 
 " ==================== fzf-lua ====================
 noremap <silent> <C-p> :FzfLua files<CR>
-noremap <silent> <C-f> :Rg<CR>
+"noremap <silent> <C-f> :Rg<CR>
 noremap <silent> <C-h> :FzfLua oldfiles cwd=~<CR>
 noremap <silent> <C-q> :FzfLua builtin<CR>
-noremap <silent> <C-t> :FzfLua lines<CR>
+"noremap <silent> <C-t> :FzfLua lines<CR>
 " noremap <silent> <C-x> :FzfLua resume<CR>
 noremap <silent> z= :FzfLua spell_suggest<CR>
-noremap <silent> <C-w> :FzfLua buffers<CR>
+"noremap <silent> <C-w> :FzfLua buffers<CR>
 noremap <leader>; :History:<CR>
 augroup fzf_commands
   autocmd!
@@ -259,7 +265,7 @@ require'fzf-lua'.setup {
 		-- no need to set to `false` to disable a bind
 		-- delete or modify is sufficient
 		builtin = {
-			["<c-f>"]      = "toggle-fullscreen",
+		--	["<c-f>"]      = "toggle-fullscreen",
 			["<c-r>"]      = "toggle-preview-wrap",
 			["<c-p>"]      = "toggle-preview",
 			["<c-y>"]      = "preview-page-down",
@@ -339,3 +345,7 @@ require'fzf-lua'.setup {
 }
 EOF
 endif
+
+let g:lightline={ 'enable': {'statusline': 1, 'tabline': 0} }
+
+
