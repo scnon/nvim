@@ -41,6 +41,10 @@ Plug 'romgrk/barbar.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
 
+" Git
+Plug 'lewis6991/gitsigns.nvim'
+Plug 'cohama/agit.vim'
+
 call plug#end()
 
 
@@ -197,6 +201,12 @@ let g:rnvimr_layout = { 'relative': 'editor',
 let g:rnvimr_presets = [{'width': 1.0, 'height': 1.0}]
 
 
+" ==================== vim-barbar ====================
+" nnoremap <silent> <C-,> :BufferPrevious<CR>
+" nnoremap <c-,> <cmd>BufferPrevious<cr>
+" nnoremap <silent> <c-.> <Cmd>BufferNext<CR>
+nmap <c-[> <cmd>BufferPrevious<cr>
+nmap <c-]> <cmd>BufferNext<cr>
 
 "==================== vim-telescope ====================
 
@@ -204,3 +214,20 @@ nnoremap <c-p> <cmd>Telescope find_files<cr>
 nnoremap <c-l> <cmd>Telescope live_grep<cr>
 " nnoremap <leader>fb <cmd>Telescope buffers<cr>
 " nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+
+
+"==================== vim-gitsigns ====================
+
+lua <<EOF
+require('gitsigns').setup({
+	signs = {
+    add          = { hl = 'GitSignsAdd'   , text = '▎', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'    },
+    change       = { hl = 'GitSignsChange', text = '░', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn' },
+    delete       = { hl = 'GitSignsDelete', text = '_', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn' },
+    topdelete    = { hl = 'GitSignsDelete', text = '▔', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn' },
+    changedelete = { hl = 'GitSignsChange', text = '▒', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn' },
+    untracked    = { hl = 'GitSignsAdd'   , text = '┆', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'    },
+  },
+})
+EOF
