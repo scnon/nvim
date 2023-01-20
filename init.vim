@@ -25,7 +25,7 @@ Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'jiangmiao/auto-pairs'
 
 " 底部状态栏
-Plug 'theniceboy/eleline.vim', { 'branch': 'no-scrollbar' }
+" Plug 'theniceboy/eleline.vim', { 'branch': 'no-scrollbar' }
 
 " 代码注释
 Plug 'theniceboy/tcomment_vim'
@@ -34,18 +34,28 @@ Plug 'theniceboy/tcomment_vim'
 Plug 'tomasiser/vim-code-dark'
 
 " 顶部选项卡
-Plug 'nvim-tree/nvim-web-devicons'
-Plug 'romgrk/barbar.nvim'
+" Plug 'nvim-tree/nvim-web-devicons'
+" Plug 'romgrk/barbar.nvim'
 
 " 模糊搜索
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
 
 " Git
-Plug 'lewis6991/gitsigns.nvim'
+" Plug 'lewis6991/gitsigns.nvim'
 Plug 'cohama/agit.vim'
 
+" 多行编辑
+Plug 'terryma/vim-multiple-cursors'
+
+" 浮动终端
+Plug 'voldikss/vim-floaterm'
+
+
+Plug 'yaocccc/nvim-lines.lua'
+
 call plug#end()
+
 
 
 
@@ -102,7 +112,8 @@ let g:coc_global_extensions = [
 	\ 'coc-tsserver',
 	\ 'coc-vetur',
 	\ 'coc-vimlsp',
-	\ 'coc-yaml'
+	\ 'coc-yaml',
+	\ 'coc-git'
 \]
 
 " Tab 按键向下选择补全项
@@ -186,18 +197,18 @@ highlight link RnvimrNormal CursorLine
 " R 键打开 ranger
 nnoremap <silent> R :RnvimrToggle<CR><C-\><C-n>:RnvimrResize 0<CR>
 let g:rnvimr_action = {
-            \ '<C-t>': 'NvimEdit tabedit',
-            \ '<C-x>': 'NvimEdit split',
-            \ '<C-v>': 'NvimEdit vsplit',
-            \ 'gw': 'JumpNvimCwd',
-            \ 'yw': 'EmitRangerCwd'
-            \ }
+			\ '<C-t>': 'NvimEdit tabedit',
+			\ '<C-x>': 'NvimEdit split',
+			\ '<C-v>': 'NvimEdit vsplit',
+			\ 'gw': 'JumpNvimCwd',
+			\ 'yw': 'EmitRangerCwd'
+\ }
 let g:rnvimr_layout = { 'relative': 'editor',
-            \ 'width': 0.6,
-            \ 'height': 0.6,
-            \ 'col': 0,
-            \ 'row': 0,
-            \ 'style': 'minimal' }
+			\ 'width': 0.6,
+			\ 'height': 0.6,
+			\ 'col': 0,
+			\ 'row': 0,
+			\ 'style': 'minimal' }
 let g:rnvimr_presets = [{'width': 1.0, 'height': 1.0}]
 
 
@@ -216,18 +227,69 @@ nnoremap <c-l> <cmd>Telescope live_grep<cr>
 " nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 
+" lua require'nvim-gitsigns'
+" lua require'nvim-lines'
 
-"==================== vim-gitsigns ====================
+"==================== vim-multiple-cursors ====================
 
-lua <<EOF
-require('gitsigns').setup({
-	signs = {
-    add          = { hl = 'GitSignsAdd'   , text = '▎', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'    },
-    change       = { hl = 'GitSignsChange', text = '░', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn' },
-    delete       = { hl = 'GitSignsDelete', text = '_', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn' },
-    topdelete    = { hl = 'GitSignsDelete', text = '▔', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn' },
-    changedelete = { hl = 'GitSignsChange', text = '▒', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn' },
-    untracked    = { hl = 'GitSignsAdd'   , text = '┆', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'    },
-  },
-})
-EOF
+let g:multi_cursor_use_default_mapping=0
+
+" Default mapping
+let g:multi_cursor_start_word_key      = '<C-n>'
+let g:multi_cursor_select_all_word_key = '<A-n>'
+let g:multi_cursor_start_key           = 'g<C-n>'
+let g:multi_cursor_select_all_key      = 'g<A-n>'
+let g:multi_cursor_next_key            = '<C-n>'
+let g:multi_cursor_prev_key            = '<C-p>'
+let g:multi_cursor_skip_key            = '<C-x>'
+let g:multi_cursor_quit_key            = '<Esc>'
+
+
+
+" ==================== vim-floaterm ====================
+
+let g:floaterm_keymap_new    = '<F7>'
+let g:floaterm_keymap_prev   = '<F8>'
+let g:floaterm_keymap_next   = '<F9>'
+let g:floaterm_keymap_toggle = '<F1>'
+
+
+
+let g:line_statusline_enable = 1          " 状态栏 是否开启
+let g:line_tabline_enable = 1             " 标题栏 是否开启
+let g:line_powerline_enable = 0           " 状态栏 标题栏 展示powerline字体
+let g:line_nerdfont_enable = 0            " 状态栏 标题栏 展示nerdfont图标
+let g:line_dclick_interval = 100          " 标题栏 双击的间隔(双击可用于关闭buffer)
+let g:line_modi_mark = '+'                " 标题栏 发生变更的buffer的标记
+let g:line_unnamed_filename = '[unnamed]' " 状态栏 标题栏 未命名文件 文件名
+let g:line_statusline_getters = []        " 状态栏 额外展示的内容的获取方法名 以下有部分使用例子
+" 状态栏 当前模式和显示内容的映射
+let g:line_mode_map = {
+		\  "n": "NORMAL",
+		\  "v": "VISUAL",
+		\  "V": "V-LINE",
+		\  "\<c-v>": "V-CODE",
+		\  "i": "INSERT",
+		\  "R": "R",
+		\  "r": "R",
+		\  "Rv": "V-REPLACE",
+		\  "c": "CMD-IN",
+		\  "s": "SELECT",
+		\  "S": "SELECT",
+		\  "\<c-s>": "SELECT",
+		\  "t": "TERMINAL"
+\}
+
+" 高亮设置
+let g:line_hl = { 'none': 'NONE', 'light': '24', 'dark': '238', 'break': '244', 'space': '238' } 
+let g:line_percent_bar = [
+			\   '░░░',
+			\   '▒░░',
+			\   '█░░',
+			\   '█▒░',
+			\   '██░',
+			\   '██▒',
+			\   '███'
+\]
+let g:line_statusline_headsymbol = '▒'    " 状态栏左侧头部的符号
+let g:line_tabline_headsymbol = '▒'       " 标题栏左侧头部的符号
