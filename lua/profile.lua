@@ -7,11 +7,13 @@ G.opt.clipboard = 'unnamed,unnamedplus'
 G.cmd([[
 silent !mkdir -p $HOME/.config/nvim/tmp/backup
 silent !mkdir -p $HOME/.config/nvim/tmp/undo
+set backupdir=$HOME/.config/nvim/tmp/backup,.
+set directory=$HOME/.config/nvim/tmp/backup,.
+if has('persistent_undo')
+    set undofile
+    set undodir=$HOME/.config/nvim/tmp/undo,.
+endif
 ]])
-G.opt.backupdir = '$HOME/.config/nvim/tmp/backup,.'
-G.opt.directory = '$HOME/.config/nvim/tmp/backup,.'
-G.opt.undofile = true
-G.opt.undodir = '$HOME/.config/nvim/tpm/undo,.'
 
 -- 设置鼠标移动
 G.opt.mouse = 'a'

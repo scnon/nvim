@@ -40,7 +40,7 @@ function M.config()
 
     M.setFTToggleMap('<c-s>', 'TERM', '')
     M.setFTToggleMap('ff', 'RANGER', 'ranger')
-    M.setFTToggleMap('bb', 'DBUI', 'nvim +CALLDB')
+    -- M.setFTToggleMap('bb', 'DBUI', 'nvim +CALLDB')
 
     G.map({
         { 'n', '<F5>', ':lua require("pack/vim-floaterm").runFile()<cr>', {silent = true, noremap = true}},

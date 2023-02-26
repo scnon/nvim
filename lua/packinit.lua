@@ -17,7 +17,8 @@ require('packer').startup({
         use { 'wbthomason/packer.nvim' }
 
         -- vscode 主题
-        use { 'tomasiser/vim-code-dark' }
+        require('plugs/code-dark').config()
+        use { 'tomasiser/vim-code-dark', config = "require('plugs/code-dark').setup()" }
 
         -- 浮动终端
         require('plugs/floaterm').config()
@@ -34,6 +35,12 @@ require('packer').startup({
         -- 状态栏 & 标题栏
         require('plugs/lines').config()
         use { 'yaocccc/nvim-lines.lua', config = "require('plugs/lines').setup()" }
+
+        -- 文件管理器
+        require('plugs/nvim-tree').config()
+        use { 'nvim-tree/nvim-tree.lua', require = {
+            'nvim-tree/nvim-web-devicons',
+        }, config = "require('plugs/nvim-tree').setup()" }
 
     end,
     config = {
