@@ -3,7 +3,9 @@ local packer_bootstrap = false
 local install_path = G.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 local compiled_path = G.fn.stdpath('config')..'/plugin/packer_compiled.lua'
 
-if G.fn.has('win32') == 1 then
+local isWin = G.fn.has('win32') == 1
+
+if isWin then
     install_path = G.fn.stdpath('data')..'\\site\\pack\\packer\\start\\packer.nvim'
     compiled_path = G.fn.stdpath('config')..'\\plugin\\packer_compiled.lua'
 end
@@ -11,7 +13,11 @@ end
 if G.fn.empty(G.fn.glob(install_path)) > 0 then
     print('Installing packer.nvim...')
     G.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-    G.fn.system({'rm', '-rf', compiled_path})
+    if isWin then
+        G.fn.system({'rmdir', '/s', '/q', compiled_path})
+    else
+        G.fn.system({'rm', '-rf', compiled_path})
+    end
     G.cmd [[packadd packer.nvim]]
     packer_bootstrap = true
 end
