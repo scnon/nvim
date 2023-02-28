@@ -10,7 +10,7 @@ function M.config()
         'coc-go',
         'coc-sh',
         'coc-db',
-        'coc-stylua',
+        'coc-git',
         'coc-translator',
     }
 

@@ -14,6 +14,12 @@ function M.setup()
             }
         },
         view = {
+            mappings = {
+                list = {
+                    { key = 'P', action = 'dir_up' },
+                    { key = '<Cr>', action = 'cd' },
+                },
+            },
             float = {
                 enable = false,
                 open_win_config = function()

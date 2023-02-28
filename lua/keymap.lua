@@ -22,6 +22,8 @@ G.map({
     { 'i', '<c-u>',       '<Esc>cc', { noremap = true } },
     { 'i', '<c-a>',       '<Esc>I',  { noremap = true } },
     { 'i', '<c-e>',       '<Esc>A',  { noremap = true } },
+    { 'i', '<c-p>',       '<Esc>ka',  { noremap = true } },
+    { 'i', '<c-n>',       '<Esc>ja',  { noremap = true } },
 
     -- windows: sp 上下窗口 sv 左右分屏 sc关闭当前 so关闭其他 s方向切换
     { 'n', 'sv',        ':vsp<cr><c-w>w',   { noremap = true } },

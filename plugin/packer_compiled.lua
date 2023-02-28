@@ -74,6 +74,14 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["agit.vim"] = {
+    commands = { "Agit" },
+    loaded = false,
+    needs_bufread = false,
+    only_cond = false,
+    path = "/Users/x/.local/share/nvim/site/pack/packer/opt/agit.vim",
+    url = "https://github.com/cohama/agit.vim"
+  },
   ["coc.nvim"] = {
     config = { "require('plugs/coc').setup()" },
     loaded = true,
@@ -88,6 +96,24 @@ _G.packer_plugins = {
     path = "/Users/x/.local/share/nvim/site/pack/packer/opt/copilot.vim",
     url = "https://github.com/github/copilot.vim"
   },
+  fzf = {
+    after = { "fzf.vim" },
+    loaded = false,
+    needs_bufread = false,
+    only_cond = false,
+    path = "/Users/x/.local/share/nvim/site/pack/packer/opt/fzf",
+    url = "https://github.com/junegunn/fzf"
+  },
+  ["fzf.vim"] = {
+    config = { "require('plugs/fzf').setup()" },
+    load_after = {
+      fzf = true
+    },
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/x/.local/share/nvim/site/pack/packer/opt/fzf.vim",
+    url = "https://github.com/junegunn/fzf.vim"
+  },
   ["nvim-lines.lua"] = {
     config = { "require('plugs/lines').setup()" },
     loaded = true,
@@ -100,16 +126,40 @@ _G.packer_plugins = {
     path = "/Users/x/.local/share/nvim/site/pack/packer/start/nvim-tree.lua",
     url = "https://github.com/nvim-tree/nvim-tree.lua"
   },
+  ["nvim-treesitter"] = {
+    after = { "playground" },
+    config = { "require('plugs/tree-sitter').setup()" },
+    loaded = false,
+    needs_bufread = false,
+    only_cond = false,
+    path = "/Users/x/.local/share/nvim/site/pack/packer/opt/nvim-treesitter",
+    url = "https://github.com/nvim-treesitter/nvim-treesitter"
+  },
   ["packer.nvim"] = {
     loaded = true,
     path = "/Users/x/.local/share/nvim/site/pack/packer/start/packer.nvim",
     url = "https://github.com/wbthomason/packer.nvim"
+  },
+  playground = {
+    load_after = {
+      ["nvim-treesitter"] = true
+    },
+    loaded = false,
+    needs_bufread = true,
+    path = "/Users/x/.local/share/nvim/site/pack/packer/opt/playground",
+    url = "https://github.com/nvim-treesitter/playground"
   },
   ["vim-code-dark"] = {
     config = { "require('plugs/code-dark').setup()" },
     loaded = true,
     path = "/Users/x/.local/share/nvim/site/pack/packer/start/vim-code-dark",
     url = "https://github.com/tomasiser/vim-code-dark"
+  },
+  ["vim-comment"] = {
+    config = { "require('plugs/vim-comment').setup()" },
+    loaded = true,
+    path = "/Users/x/.local/share/nvim/site/pack/packer/start/vim-comment",
+    url = "https://github.com/yaocccc/vim-comment"
   },
   ["vim-floaterm"] = {
     config = { "require('plugs/floaterm').setup()" },
@@ -120,30 +170,48 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: nvim-tree.lua
-time([[Config for nvim-tree.lua]], true)
-require('plugs/nvim-tree').setup()
-time([[Config for nvim-tree.lua]], false)
--- Config for: vim-code-dark
-time([[Config for vim-code-dark]], true)
-require('plugs/code-dark').setup()
-time([[Config for vim-code-dark]], false)
 -- Config for: nvim-lines.lua
 time([[Config for nvim-lines.lua]], true)
 require('plugs/lines').setup()
 time([[Config for nvim-lines.lua]], false)
--- Config for: coc.nvim
-time([[Config for coc.nvim]], true)
-require('plugs/coc').setup()
-time([[Config for coc.nvim]], false)
 -- Config for: vim-floaterm
 time([[Config for vim-floaterm]], true)
 require('plugs/floaterm').setup()
 time([[Config for vim-floaterm]], false)
+-- Config for: coc.nvim
+time([[Config for coc.nvim]], true)
+require('plugs/coc').setup()
+time([[Config for coc.nvim]], false)
+-- Config for: nvim-tree.lua
+time([[Config for nvim-tree.lua]], true)
+require('plugs/nvim-tree').setup()
+time([[Config for nvim-tree.lua]], false)
+-- Config for: vim-comment
+time([[Config for vim-comment]], true)
+require('plugs/vim-comment').setup()
+time([[Config for vim-comment]], false)
+-- Config for: vim-code-dark
+time([[Config for vim-code-dark]], true)
+require('plugs/code-dark').setup()
+time([[Config for vim-code-dark]], false)
+
+-- Command lazy-loads
+time([[Defining lazy-load commands]], true)
+pcall(vim.api.nvim_create_user_command, 'Agit', function(cmdargs)
+          require('packer.load')({'agit.vim'}, { cmd = 'Agit', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
+        end,
+        {nargs = '*', range = true, bang = true, complete = function()
+          require('packer.load')({'agit.vim'}, {}, _G.packer_plugins)
+          return vim.fn.getcompletion('Agit ', 'cmdline')
+      end})
+time([[Defining lazy-load commands]], false)
+
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Event lazy-loads
 time([[Defining lazy-load event autocommands]], true)
+vim.cmd [[au BufRead * ++once lua require("packer.load")({'nvim-treesitter'}, { event = "BufRead *" }, _G.packer_plugins)]]
+vim.cmd [[au CmdLineEnter * ++once lua require("packer.load")({'fzf'}, { event = "CmdLineEnter *" }, _G.packer_plugins)]]
 vim.cmd [[au InsertEnter * ++once lua require("packer.load")({'copilot.vim'}, { event = "InsertEnter *" }, _G.packer_plugins)]]
 time([[Defining lazy-load event autocommands]], false)
 vim.cmd("augroup END")

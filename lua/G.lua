@@ -14,6 +14,19 @@ function G.map(maps)
 	end
 end
 
+function G.hi(hls)
+    local colormode = G.o.termguicolors and '' or 'cterm'
+    for group,color in pairs(hls) do
+        local opt = {}
+        if color.fg then opt[colormode .. 'fg'] = color.fg end
+        if color.bg then opt[colormode .. 'bg'] = color.bg end
+        if color.italic then opt.italic = true end
+        if color.bold then opt.bold = true end
+        if color.underline then opt.underline = true end
+        G.api.nvim_set_hl(0, group, opt)
+    end
+end
+
 function G.cmd(cmd)
 	G.api.nvim_command(cmd)
 end

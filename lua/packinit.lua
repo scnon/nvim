@@ -13,9 +13,7 @@ end
 if G.fn.empty(G.fn.glob(install_path)) > 0 then
     print('Installing packer.nvim...')
     G.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-    if isWin then
-        G.fn.system({'rmdir', '/s', '/q', compiled_path})
-    else
+    if not isWin then
         G.fn.system({'rm', '-rf', compiled_path})
     end
     G.cmd [[packadd packer.nvim]]
@@ -53,6 +51,25 @@ require('packer').startup({
         use { 'nvim-tree/nvim-tree.lua', require = {
             'nvim-tree/nvim-web-devicons',
         }, config = "require('plugs/nvim-tree').setup()" }
+
+        
+        -- fzf 文件搜索
+        require('plugs/fzf').config()
+        use { 'junegunn/fzf', event = "CmdLineEnter" }
+        use { 'junegunn/fzf.vim', config = "require('plugs/fzf').setup()", run = 'cd ~/.fzf && ./install --all', after = "fzf" }
+
+        -- 代码注释
+        require('plugs/vim-comment').config()
+        use { 'yaocccc/vim-comment', config = "require('plugs/vim-comment').setup()" }
+
+        -- tree-sitter 语法高亮
+        require('plugs/tree-sitter').config()
+        use { 'nvim-treesitter/nvim-treesitter', config = "require('plugs/tree-sitter').setup()", run = ':TSUpdate', event = 'BufRead' }
+        use { 'nvim-treesitter/playground', after = 'nvim-treesitter' }
+
+        -- Agit
+        use { 'cohama/agit.vim', cmd = 'Agit' }
+
 
     end,
     config = {
