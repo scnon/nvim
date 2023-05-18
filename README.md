@@ -7,5 +7,5 @@ This config is reference [theniceboy/nvim](https://github.com/theniceboy/nvim)
 Welecom everyone to use.
 Enjoy it.
 
-0.
-0.
+1.
+1.
