@@ -27,6 +27,10 @@ return {
   },
   { import = "astrocommunity.pack.rust" },
   { import = "astrocommunity.pack.python" },
+  { import = "astrocommunity.pack.go" },
+  { import = "astrocommunity.pack.vue" },
+  { import = "astrocommunity.pack.yaml" },
+  { import = "astrocommunity.pack.json" },
 
   { import = "astrocommunity.colorscheme.vscode-nvim", enabled = true },
 }

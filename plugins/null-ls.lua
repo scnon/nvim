@@ -11,6 +11,13 @@ return {
       -- Set a formatter
       -- null_ls.builtins.formatting.stylua,
       -- null_ls.builtins.formatting.prettier,
+      -- go
+      -- "gofumpt",
+      -- "goimports",
+      -- "gomodifytags",
+      -- "iferr",
+      -- "impl",
+      --
     }
     return config -- return final config table
   end,

@@ -52,9 +52,18 @@ return {
     servers = {
       -- "pyright"
       "dartls",
+      "taplo",
+      "gopls",
+      -- "vue",
+      "yamlls",
+      "tsserver",
+      "jsonls",
     },
-    setup_handler = {
+    setup_handlers = {
+      -- add custom handler
       dartls = function(_, opts) require("flutter-tools").setup { lsp = opts } end,
+      rust_analyzer = function(_, opts) require("rust-tools").setup { server = opts } end,
+      tsserver = function(_, opts) require("typescript").setup { server = opts } end,
     },
     config = {
       dartls = {
@@ -68,10 +77,6 @@ return {
         },
       },
     },
-  },
-
-  plugins = {
-    "akinsho/flutter-tools.nvim",
   },
 
   -- Configure require("lazy").setup() options
@@ -101,6 +106,9 @@ return {
     --     ["~/%.config/foo/.*"] = "fooscript",
     --   },
     -- }
+
     require("vscode").load "dark"
+    vim.cmd "unmap <C-l>"
+    vim.cmd "unmap <C-h>"
   end,
 }
